@@ -1,0 +1,71 @@
+<!Doctype html>
+<head>
+	<title>DRMS</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container-fluid" width="100%" height="100%">
+		<div class="row">
+			<span class="col-xs-2 Connect"></span>
+			<strong><span class="col-xs-8 Status"></span></strong>
+			<span class="col-xs-2 Login"><button onclick="document.getElementById('id01').style.display='block'" style="width:100%;"><b>Login</b></button>
+				<button class="sbutton" onclick="window.location.href='user_sign_up/user_sign_up.html'"><b>Sign Up</b></button>
+				<div id="id01" class="modal">
+				  
+				  <form class="modal-content animate" action="user_login.php" method="post">
+				    <div class="imgcontainer">
+				      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+				      <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
+				    </div>
+
+				    <div class="container-fluid">
+				      <label for="uname"><b>Username</b></label>
+				      <input type="text" placeholder="Enter Email" name="username" required>
+
+				      <label for="psw"><b>Password</b></label>
+				      <input type="password" placeholder="Enter Password" name="password" required>
+				        
+				      <button type="submit">Login</button>
+				      <label>
+				        <input type="checkbox" checked="checked" name="remember"> Remember me
+				      </label>
+				    </div>
+
+				    <div class="container-fluid" style="background-color:#f1f1f1">
+				      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+				      <span class="psw">Forgot <a href="#">password?</a></span>
+				    </div>
+				  </form>
+				</div>
+</span>
+		</div>	
+		<div class="row">
+			<div class="col-xs-2 bar"><ul class="menu">  
+											<a href="index.html"><li>Home</li></a>
+											<a href="#"><li>PNR Status</li></a>
+											<a href="status.html"><li>Live Status</li></a>
+											<a href="#"><li>Seat Availability</li></a>
+											<a href="#"><li>Station Details</li></a>
+											<a href="#"><li>Train Details</li></a>
+											<a href="#"><li>Fare Enquiry</li></a>
+											<a href="#"><li>PlatForm Location</li></a>
+											<a href="#"><li>Ticket Reservation</li></a>
+											<a href="traininfo.html"><li>Train Route Information</li></a>
+									  </ul>
+			</div>
+			<div class="col-xs-8 box2">
+				<strong><h2>PNR Status</h2></strong>
+<form action="/statusretriever.php"  method="post">
+  Pnr Number :<br>
+  <input type="number" name="pnrnumber"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+			<div class="col-xs-2 An">Announcements</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/typed.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
