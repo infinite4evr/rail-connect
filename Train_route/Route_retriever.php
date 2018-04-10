@@ -4,9 +4,20 @@
 <title> Welcome to Rail Connect - Getting Indian railway info now becomes easy </title>
 </head>
 <body>
+
+<form action ="?" method="post">
+Train Number : <br>
+<input type="text"  name="trainid" >
+<input type ="submit" value ="Submit" name ="submit">
+
+
+
   <?php 
 
-include("navigation.php");
+  if(isset($_POST['submit']))
+
+  {
+
   ?>
 <div class="container">
 
@@ -50,6 +61,10 @@ for($i=0; $i<$routeno; $i++)
       echo "<td>{$json['route'][$i]['distance']}</td>"; // Distance (kms)
       echo "</tr>";
 }
+
+
+}
+
 ?>
 
 

@@ -1,5 +1,14 @@
-  <?php
+<form action="?"  method="post">
+  Train number:<br>
+  <input type="number" name="Tnumber"><br><br>
+  Train Start Date :<br>
+  <input type= "date" name="startdate"> <br><br>
+  <input type="submit" value="Submit" name ="submit">
+</form>  
 
+<?php
+ if(isset($_POST['submit']))
+ {
   $train_no=$_POST["Tnumber"];
 
   $started_date=$_POST["startdate"];
@@ -47,5 +56,8 @@
       echo "</tr>";
   }
   echo '</table>';
+
+
+}
   ?>
 
