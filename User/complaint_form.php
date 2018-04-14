@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,13 +65,16 @@ input[type=submit]:hover {
 
 
 <?php 
-
-
-// Primary Key Missing in Dtabase fix Please ty ! 
-
-
+session_start();
+// Primary Key Missing in Dtabase fix Please ty !
 if(isset($_POST['submit']))
 {
+
+
+if(isset($_SESSION['username']))
+
+
+{ echo "{$_SESSION['username']}";
 
     $dbHost = "localhost";        //Location Of Database usually its localhost 
     $dbUser = "root";            //Database User Name 
@@ -90,7 +94,7 @@ if(isset($_POST['submit']))
     $sql = mysqli_query($db ,"INSERT INTO `complaints`(`name`, `email`, `pnr_no`, `Subject`) VALUES ('$name','$email',$pnr_no,'$subject')"); 
     if($sql == true){ 
        
-       echo "<script>alert('Complaint Submitted Successfully'); window.location='complaint_form.php'</script>";
+       //echo "<script>alert('Complaint Submitted Successfully'); window.location='../index.html'</script>";
     }
 
 
@@ -99,6 +103,16 @@ else{  echo mysqli_error($db);
         exit; 
     }
 
+}
+
+
+else 
+
+{  
+
+ echo "<script>alert('Please Login and Retry Again'); window.location='../user_login/user_login_form.html'</script>";
+
+}
 }
 
  ?> 
