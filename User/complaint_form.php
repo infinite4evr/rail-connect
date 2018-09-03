@@ -44,17 +44,17 @@ input[type=submit]:hover {
 <div class="container">
   <form action="?" method="POST">
     <label for="fname">Name</label>
-    <input type="text" id="fname" name="name" placeholder="Your name..">
+    <input type="text" id="fname" name="name" placeholder="Your name.." required>
 
-    <label for="lname">Email</label>
-    <input type="text" id="lname" name="Email" placeholder="Email">
+    <label for="lname">Username</label>
+    <input type="text" id="lname" name="Email" placeholder="Email" required>
 
      <label for="pnr_no">Pnr Number</label>
-    <input type="text" id="lname" name="pnr_no" placeholder="Pnr Number..">
+    <input type="text" id="lname" name="pnr_no" placeholder="Pnr Number.." required>
     
 
     <label for="subject">Subject</label>
-    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
 
     <input type="submit" value="Submit" name="submit">
   </form>
@@ -66,15 +66,18 @@ input[type=submit]:hover {
 
 <?php 
 session_start();
+if (!((array_key_exists("uid",$_SESSION) AND $_SESSION['uid']) OR (array_key_exists("uid",$_COOKIE) AND $_COOKIE['uid']))) {
+header("Location:../login.php");
+}
 // Primary Key Missing in Dtabase fix Please ty !
 if(isset($_POST['submit']))
 {
 
 
-if(isset($_SESSION['username']))
+if(isset($_SESSION['uid']))
 
 
-{ echo "{$_SESSION['username']}";
+{ echo "{$_SESSION['uid']}";
 
     $dbHost = "localhost";        //Location Of Database usually its localhost 
     $dbUser = "root";            //Database User Name 
@@ -90,16 +93,17 @@ if(isset($_SESSION['username']))
     $email = mysqli_real_escape_string($db,$_POST['Email']); 
     $pnr_no = mysqli_real_escape_string($db,$_POST['pnr_no']); 
     $subject = mysqli_real_escape_string($db,$_POST['subject']); 
+    $id=mysqli_real_escape_string($db,$_SESSION['uid']);
 
-    $sql = mysqli_query($db ,"INSERT INTO `complaints`(`name`, `email`, `pnr_no`, `Subject`) VALUES ('$name','$email',$pnr_no,'$subject')"); 
-    if($sql == true){ 
+    $sql ="INSERT INTO complaints(uid,name,username,pnr_no,Subject) VALUES ('$id','$name','$email','$pnr_no','$subject')"; 
+    if(mysqli_query($db,$sql)){ 
        
-       //echo "<script>alert('Complaint Submitted Successfully'); window.location='../index.html'</script>";
+       echo "<script>alert('Complaint Submitted Successfully'); window.location='../index.php'</script>";
     }
 
 
 else{  echo mysqli_error($db);
-      echo "<script>alert('Unepected Error occured '); window.location='complaint_form.php'</script>";
+      echo "<script>alert('Unepected Error occured'); window.location='complaint_form.php'</script>";
         exit; 
     }
 

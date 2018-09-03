@@ -39,16 +39,16 @@ $row=mysqli_fetch_assoc($result);
 				<nav id="nav" class="">
 					<ul>
 						<li><strong><a href="#" class="selected">DASHBOARD</a></strong></li>
-						<li><strong><a href="edittrain.php">ADD/REMOVE TRAIN</a></strong></li>
-						<li><strong><a href="edituser.php">ADD/REMOVE USER</a></strong></li>
+						<li><strong><a href="#">ADD/REMOVE TRAIN</a></strong></li>
+						<li><strong><a href="#">ADD/REMOVE USER</a></strong></li>
 						<li><strong><div class="dropdown"><a class="dropbtn">VIEW</a>
 							<div class="dropdown-content">
-								<a href="users.php">ALL USERS</a>
-							<a href="booked.php">BOOKED TICKETS</a>
-							<a href="cancel.php">CANCELLED TICKETS</a>
+							<a href="#">ALL USERS</a>
+							<a href="#">BOOKED TICKETS</a>
+							<a href="#">CANCELLED TICKETS</a>
 							</div>
 						</div></strong></li>
-						<li><strong><a href="review.php">Complaint-Review</a></strong></li>					
+						<li><strong><a href="../review.php">Complaint-Review</a></strong></li>					
 					</ul>
 				</nav>
 			</header>

@@ -21,7 +21,7 @@ $row=mysqli_fetch_assoc($result);
 ?>
 
 <head>
-	<title>ADMIN</title>
+	<title>Welcome <?php echo $u[0];?></title>
 	<link rel="shortcut icon" type="image/png" href="../images/logo.jpg"/>
 	<link rel="stylesheet" href="../css/style.css" />
 	 <link rel="stylesheet" href="../css/skel.css" />
@@ -39,16 +39,18 @@ $row=mysqli_fetch_assoc($result);
 				<nav id="nav" class="">
 					<ul>
 						<li><strong><a href="#" class="selected">DASHBOARD</a></strong></li>
-						<li><strong><a href="edittrain.php">ADD/REMOVE TRAIN</a></strong></li>
-						<li><strong><a href="edituser.php">ADD/REMOVE USER</a></strong></li>
-						<li><strong><div class="dropdown"><a class="dropbtn">VIEW</a>
+						<li><strong><a href="../statusretriever.php">LIVE STATUS</a></strong></li>
+						<li><strong><a href="../Ticket/ticket.php">TICKET RESERVATION</a></strong></li>
+						<li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
 							<div class="dropdown-content">
-								<a href="users.php">ALL USERS</a>
-							<a href="booked.php">BOOKED TICKETS</a>
-							<a href="cancel.php">CANCELLED TICKETS</a>
-							</div>
+							<a href="../traind/traind.php">Train Details</a>
+              <a href="../fare/fare.php">Fare Enquiry</a>
+							<a href="../Cancelled_trains/Cancelled_trains.php">Cancelled_trains</a>
+							<a href="../Train_route/Route_retriever.php">Train Route Information</a></div>
 						</div></strong></li>
-						<li><strong><a href="review.php">Complaint-Review</a></strong></li>					
+						<li><strong><a href="../About.php">ABOUT</a></strong></li>
+						<li><strong><a href="../Team.php">TEAM</a></strong></li>
+						<li><strong><a href="../contact.php">CONTACT</a></strong></li>					
 					</ul>
 				</nav>
 			</header>
