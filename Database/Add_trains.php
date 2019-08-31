@@ -1,6 +1,6 @@
 <form action="?"  method="post">
   Train number:<br>
-  
+
   <input type="number" name="train_no"><br><br>
   Train name :<br>
   <input type= "text" name="train_name"> <br><br>
@@ -17,9 +17,8 @@
 </form>
 
 <?php
-  if(isset($_POST['Submit']))
-  {
-  require '../database/database.php';
+if (isset($_POST['Submit'])) {
+    require '../database/database.php';
 
     //Getting train info
 
@@ -30,24 +29,21 @@
     $departure_time = $_POST['departure_time'];
     $arrival_time = $_POST['arrival_time'];
 
-   //Inserting them !
+    //Inserting them !
 
     $query = "INSERT INTO `train_info`(`train_no`, `train_name`, `station_from`, `station_to`, `departure_time`, `arrival_time`) VALUES ('$train_no','$train_name',
     '$station_from','$station_to','$departure_time','$arrival_time')";
 
-    $results = mysqli_query($conn,$query);
+    $results = mysqli_query($conn, $query);
 
-   if($results==true){
+    if ($results == true) {
 
-      echo " Adding Train Successfull :";
-      echo "Want to Add more trains Admin ?";  // Put a Herf here Gursimran :") 
+        echo " Adding Train Successfull :";
+        echo "Want to Add more trains Admin ?"; // Put a Herf here Gursimran :")
+    } else {
+        echo "Please Try again : Adding unsuccessfull <br>  " . mysqli_error($conn);
     }
 
-   else 
-   	echo "Please Try again : Adding unsuccessfull <br>  ". mysqli_error($conn);
+}
 
-
- }
-    
-
-    ?>
+?>

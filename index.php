@@ -13,15 +13,15 @@
 		<script src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script> 
+		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/bootstrap.min.css" />
 			 <link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-xlarge.css" /> 
-		
-			
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+
+
 		</noscript>
 	</head>
 	<body id="top">
@@ -50,7 +50,7 @@
 						</div></strong></li>
 						<li><strong><a href="About.php">ABOUT</a></strong></li>
 						<li><strong><a href="Team.php">TEAM</a></strong></li>
-						<li><strong><a href="contact.php">CONTACT</a></strong></li>					
+						<li><strong><a href="contact.php">CONTACT</a></strong></li>
 					</ul>
 				</nav>
 			</header>
@@ -63,16 +63,14 @@
 					<ul class="actions">
 						<li><a target="_blank" href="login.php" class="button big special">Login</a></li>
 						<li><a target="_blank" href="user_sign_up/user_sign_up.php" class="button big special">Sign Up</a></li>
-				
-						
+
+
 					</ul>
 				</div>
 			</section>
 
-		
+
 <script type="text/javascript" src="js/typed.min.js"></script>
 			<script type="text/javascript" src="js/script.js"></script>
 	</body>
 </html>
-
-

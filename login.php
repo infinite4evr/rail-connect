@@ -1,49 +1,54 @@
  <?php
- session_start();
-if(array_key_exists("logout",$_GET)){
+session_start();
+if (array_key_exists("logout", $_GET)) {
     unset($_SESSION);
-    setcookie("uid","",time()-60*60);
-    $_COOKIE['uid']="";
-}
-elseif ((array_key_exists("uid",$_SESSION) AND $_SESSION['uid']) OR (array_key_exists("uid",$_COOKIE) AND $_COOKIE['uid'])) {
+    setcookie("uid", "", time() - 60 * 60);
+    $_COOKIE['uid'] = "";
+} elseif ((array_key_exists("uid", $_SESSION) and $_SESSION['uid']) or (array_key_exists("uid", $_COOKIE) and $_COOKIE['uid'])) {
 
-$q=mysqli_query(mysqli_connect("localhost","root","","rail_connect"),"SELECT * FROM users");
-                      if($q==TRUE){
-                        for($i=1;$row['uid']!=$_SESSION['uid'];$i++)
-                        $row=mysqli_fetch_array($q);
-                        $_SESSION['Admin']=$row['Admin'];
-    if($row['Admin']=='1')
-    header("Location:Admin/admin.php");
-    else
-    header("Location:dashboard/dashboard.php");   
-}}
-if(array_key_exists("submit",$_POST)){
-$db=mysqli_connect("localhost","root","","rail_connect");
-if(mysqli_connect_error()){
-   die("Database Connection Error.");
-}
-$query="SELECT uid FROM users WHERE username='".mysqli_real_escape_string($db,$_POST['username'])."' AND  password='".mysqli_real_escape_string($db,$_POST['password'])."' LIMIT 1";
-$result=mysqli_query($db,$query);
-$row=mysqli_fetch_array($result);
-if(isset($row)){
- $_SESSION['uid']=$row['uid'];
-    if(isset($_POST['remember']) && ($_POST['remember']=='on' || $_POST['remember']=='1')){//always setting the cookie
-        setcookie("uid",$row['uid'],time()+ 60*60*24*365);
+    $q = mysqli_query(mysqli_connect("localhost", "root", "", "rail_connect"), "SELECT * FROM users");
+    if ($q == true) {
+        for ($i = 1; $row['uid'] != $_SESSION['uid']; $i++) {
+            $row = mysqli_fetch_array($q);
+        }
+
+        $_SESSION['Admin'] = $row['Admin'];
+        if ($row['Admin'] == '1') {
+            header("Location:Admin/admin.php");
+        } else {
+            header("Location:dashboard/dashboard.php");
+        }
+
+    }}
+if (array_key_exists("submit", $_POST)) {
+    $db = mysqli_connect("localhost", "root", "", "rail_connect");
+    if (mysqli_connect_error()) {
+        die("Database Connection Error.");
     }
-    $q=mysqli_query($db,"SELECT * FROM users");
-                      if($q==TRUE){
-                         for($i=1;$row['uid']!=$_SESSION['uid'];$i++)
-                        $row=mysqli_fetch_array($q);
-                    $_SESSION['Admin']=$row['Admin'];
-    if($row['Admin']=='1')
-    header("Location:Admin/admin.php");
-    else
-    header("Location:dashboard/dashboard.php");}   
-}
-else
-{
-    echo"<strong style=\"color:white\">Could not Log in. Username/Password could not be found.Please try Again Later.</strong>";
-}
+    $query = "SELECT uid FROM users WHERE username='" . mysqli_real_escape_string($db, $_POST['username']) . "' AND  password='" . mysqli_real_escape_string($db, $_POST['password']) . "' LIMIT 1";
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($result);
+    if (isset($row)) {
+        $_SESSION['uid'] = $row['uid'];
+        if (isset($_POST['remember']) && ($_POST['remember'] == 'on' || $_POST['remember'] == '1')) { //always setting the cookie
+            setcookie("uid", $row['uid'], time() + 60 * 60 * 24 * 365);
+        }
+        $q = mysqli_query($db, "SELECT * FROM users");
+        if ($q == true) {
+            for ($i = 1; $row['uid'] != $_SESSION['uid']; $i++) {
+                $row = mysqli_fetch_array($q);
+            }
+
+            $_SESSION['Admin'] = $row['Admin'];
+            if ($row['Admin'] == '1') {
+                header("Location:Admin/admin.php");
+            } else {
+                header("Location:dashboard/dashboard.php");
+            }
+        }
+    } else {
+        echo "<strong style=\"color:white\">Could not Log in. Username/Password could not be found.Please try Again Later.</strong>";
+    }
 }
 ?>
   <head>
@@ -138,7 +143,7 @@ span.psw {
     animation: animatezoom 0.6s
 }
 @keyframes animatezoom {
-    from {transform: scale(0)} 
+    from {transform: scale(0)}
     to {transform: scale(1)}
 }
 @media screen and (max-width: 300px) {
@@ -158,9 +163,9 @@ span.psw {
         <h1 style="color:#f0f0f0">Login</h1>
     <p style="color:#f0f0f0">Please fill in this form to Login into Your account.</p>
     <hr>
-    <div class="imgcontainer">                
+    <div class="imgcontainer">
     <img src="img_avatar2.png" alt="Avatar" class="avatar" style="display: inline-block;vertical-align: top;">
-                  
+
                     <div style="display: inline-block;vertical-align:bottom; width:50%;">
                       <h3 style="vertical-align:top;font-size: 100px;">LOGIN HERE</h3>
                       <label for="uname" style="color:#f0f0f0"><b>Username</b></label>
@@ -173,7 +178,7 @@ span.psw {
                                 </label><br>
                        <a href="index.php"><button type="button" class="cancelbtn">Cancel</button></a>
                        <button type="submit" name="submit">Login</button></div>
-                       </div>  
+                       </div>
                        <br><br>
                        <hr>
                        <div>
@@ -182,6 +187,6 @@ span.psw {
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
     </div>
-                    
+
 </form>
 </body>

@@ -104,12 +104,12 @@ span.psw {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
+    from {-webkit-transform: scale(0)}
     to {-webkit-transform: scale(1)}
 }
-    
+
 @keyframes animatezoom {
-    from {transform: scale(0)} 
+    from {transform: scale(0)}
     to {transform: scale(1)}
 }
 
@@ -132,7 +132,7 @@ span.psw {
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
 <div id="id01" class="modal">
-  
+
   <form class="modal-content animate" action="?" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -145,7 +145,7 @@ span.psw {
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" required>
-        
+
       <button type="submit" name="submit">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -177,44 +177,38 @@ window.onclick = function(event) {
 
 
 
-<?php 
+<?php
 
+if (isset($_POST['submit'])) {
+    $dbHost = "localhost"; //Location Of Database usually its localhost
+    $dbUser = "root"; //Database User Name
+    $dbPass = ""; //Database Password
+    $dbDatabase = "rail_connect"; //Database Name
 
-if(isset($_POST['submit']))
+    $db = mysqli_connect($dbHost, $dbUser, $dbPass) or die("Error connecting to database.");
+    //Connect to the databasse
+    mysqli_select_db($db, $dbDatabase) or die("Couldn't select the database.");
 
-{
-    $dbHost = "localhost";        //Location Of Database usually its localhost 
-    $dbUser = "root";            //Database User Name 
-    $dbPass = "";            //Database Password 
-    $dbDatabase = "rail_connect";    //Database Name 
-
-     
-    $db = mysqli_connect($dbHost,$dbUser,$dbPass) or die("Error connecting to database."); 
-    //Connect to the databasse 
-    mysqli_select_db($db, $dbDatabase)or die("Couldn't select the database."); 
-
-    $usr = mysqli_real_escape_string($db,$_POST['username']); 
-    $pas = mysqli_real_escape_string($db,$_POST['password']); 
+    $usr = mysqli_real_escape_string($db, $_POST['username']);
+    $pas = mysqli_real_escape_string($db, $_POST['password']);
     echo $usr;
     echo $pas;
-    $sql = mysqli_query($db ,"SELECT * FROM users_table WHERE username='$usr' AND  password='$pas' "); 
-    if(mysqli_num_rows($sql) == 1){ 
-        $row = mysqli_fetch_array($sql); 
-        session_start(); 
-        $_SESSION['username'] = $row['username']; 
-        $_SESSION['logged'] = TRUE; 
-        header("Location: users_page.php"); // Modify to go to the page you would like  
-        exit; 
-    }
-
-
-else{   echo "Error: Username or Password Incorrect Or User does not Exist " ; sleep(5);
-        header("Location: user_login.php"); 
-        exit; 
+    $sql = mysqli_query($db, "SELECT * FROM users_table WHERE username='$usr' AND  password='$pas' ");
+    if (mysqli_num_rows($sql) == 1) {
+        $row = mysqli_fetch_array($sql);
+        session_start();
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['logged'] = true;
+        header("Location: users_page.php"); // Modify to go to the page you would like
+        exit;
+    } else {echo "Error: Username or Password Incorrect Or User does not Exist ";
+        sleep(5);
+        header("Location: user_login.php");
+        exit;
     }
 
 }
 
- ?> 
+?>
 
 

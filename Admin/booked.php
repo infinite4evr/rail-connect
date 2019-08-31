@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-$conn=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to connect to the Database.");
+$conn = mysqli_connect("localhost", "root", "", "rail_connect") or die("Unable to connect to the Database.");
 ?>
 <head>
     <title>ADMIN</title>
@@ -30,7 +30,7 @@ $conn=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to con
                             <a href="cancel.php">CANCELLED TICKETS</a>
                             </div>
                         </div></strong></li>
-                        <li><strong><a href="#">Complaint-Review</a></strong></li>                 
+                        <li><strong><a href="#">Complaint-Review</a></strong></li>
                     </ul>
                 </nav>
             </header>
@@ -38,24 +38,24 @@ $conn=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to con
               <div style="padding:100px; width: 80%;">
                 <b><h1>ALL BOOKED TICKETS</h1></b>
                 <?php
-                echo '<table>'; 
-                 echo "<tr>";
-                     echo "<th>Train Number</th>";
-                      echo "<th>Train Name</th>";
-                      echo "<th>Number of Tickets</th>";
-                      echo "<th>Fare</th></tr>";
-                      $q=mysqli_query($conn,"SELECT * FROM trains,ticket WHERE tno=train_number;");
-                      if($q==TRUE){
-                        $n=mysqli_num_rows($q);
-                for($i=0; $i<$n; $i++)
-                {   
-                    $row=mysqli_fetch_array($q);
-                    if($row['Cancelled']==FALSE)
-                    echo "<tr><td>{$row['train_number']}</td><td>{$row['train_name']}</td><td>{$row['pnumber']}</td><td>{$row['fare']}</td></tr>";
-                }
-            }
-                    ?>
+echo '<table>';
+echo "<tr>";
+echo "<th>Train Number</th>";
+echo "<th>Train Name</th>";
+echo "<th>Number of Tickets</th>";
+echo "<th>Fare</th></tr>";
+$q = mysqli_query($conn, "SELECT * FROM trains,ticket WHERE tno=train_number;");
+if ($q == true) {
+    $n = mysqli_num_rows($q);
+    for ($i = 0; $i < $n; $i++) {
+        $row = mysqli_fetch_array($q);
+        if ($row['Cancelled'] == false) {
+            echo "<tr><td>{$row['train_number']}</td><td>{$row['train_name']}</td><td>{$row['pnumber']}</td><td>{$row['fare']}</td></tr>";
+        }
+
+    }
+}
+?>
             </div></section>
 <script type="text/javascript" src="js/typed.min.js"></script>
             <script type="text/javascript" src="js/script.js"></script>
-            

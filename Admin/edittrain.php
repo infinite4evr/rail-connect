@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <head>
@@ -29,7 +29,7 @@ session_start();
 							<a href="cancel.php">CANCELLED TICKETS</a>
 							</div>
 						</div></strong></li>
-						<li><strong><a href="review.php">Complaint-Review</a></strong></li>					
+						<li><strong><a href="review.php">Complaint-Review</a></strong></li>
 					</ul>
 				</nav>
 			</header>
@@ -64,31 +64,28 @@ session_start();
 <script type="text/javascript" src="js/typed.min.js"></script>
 			<script type="text/javascript" src="js/script.js"></script>
 			<?php
-				 if(array_key_exists('submit',$_POST))
-				 {
-				 	$conn=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to connect to the Database.");
-				 	$sname=mysqli_real_escape_string($conn,$_POST['source']);
-				 	$dname=mysqli_real_escape_string($conn,$_POST['destination']);
-				 	$tname=mysqli_real_escape_string($conn,$_POST['Tname']);
-				 	$tnumber=mysqli_real_escape_string($conn,$_POST['Tnumber']);
-				 	$ttype=mysqli_real_escape_string($conn,$_POST['Ttype']);
-				 	if($_POST['submit']=='Add'){
-				 	$q=mysqli_query($conn,"INSERT INTO `trains`(from_station_name,to_station_name,train_name,train_number,train_type) VALUES('$sname','$dname','$tname','$tnumber','$ttype');");
-				 	if($q==True){
-				 		echo "<p><script>alert('Train Inserted into the Database');</script></p>";
-				 	}
-				 	else{
-				 		echo"<p><script>alert('Train Could not be inserted into the Database');</script></p>";
-				 	}}
+if (array_key_exists('submit', $_POST)) {
+    $conn = mysqli_connect("localhost", "root", "", "rail_connect") or die("Unable to connect to the Database.");
+    $sname = mysqli_real_escape_string($conn, $_POST['source']);
+    $dname = mysqli_real_escape_string($conn, $_POST['destination']);
+    $tname = mysqli_real_escape_string($conn, $_POST['Tname']);
+    $tnumber = mysqli_real_escape_string($conn, $_POST['Tnumber']);
+    $ttype = mysqli_real_escape_string($conn, $_POST['Ttype']);
+    if ($_POST['submit'] == 'Add') {
+        $q = mysqli_query($conn, "INSERT INTO `trains`(from_station_name,to_station_name,train_name,train_number,train_type) VALUES('$sname','$dname','$tname','$tnumber','$ttype');");
+        if ($q == true) {
+            echo "<p><script>alert('Train Inserted into the Database');</script></p>";
+        } else {
+            echo "<p><script>alert('Train Could not be inserted into the Database');</script></p>";
+        }}
 
-				 		if($_POST['submit']=='Remove'){
-				 	$q=mysqli_query($conn,"DELETE FROM `trains` WHERE (from_station_name='$sname' AND to_station_name='$dname' AND train_name='$tname' AND train_number='$tnumber' AND train_type='$ttype') LIMIT 1;");
-				 	if($q==True){
-				 		echo "<p><script>alert('Train Deleted from the Database');</script></p>";
-				 	}
-				 	else{
-				 		echo"<p><script>alert('Train Could not be deleted from the Database');</script></p>";
-				 	}}
-				 }
+    if ($_POST['submit'] == 'Remove') {
+        $q = mysqli_query($conn, "DELETE FROM `trains` WHERE (from_station_name='$sname' AND to_station_name='$dname' AND train_name='$tname' AND train_number='$tnumber' AND train_type='$ttype') LIMIT 1;");
+        if ($q == true) {
+            echo "<p><script>alert('Train Deleted from the Database');</script></p>";
+        } else {
+            echo "<p><script>alert('Train Could not be deleted from the Database');</script></p>";
+        }}
+}
 
-			?>
+?>

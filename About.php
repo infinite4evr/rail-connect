@@ -1,7 +1,9 @@
-<?php 
+<?php
 session_start();
-if(array_key_exists('Admin', $_SESSION)===FALSE)
-$_SESSION['Admin']='-1';
+if (array_key_exists('Admin', $_SESSION) === false) {
+    $_SESSION['Admin'] = '-1';
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -34,12 +36,12 @@ $_SESSION['Admin']='-1';
 	    </div></div></div></nav>
 				<nav id="nav" class="">
 					<ul>
-						<li><strong><?php if($_SESSION['Admin']=='1'){ ?>
+						<li><strong><?php if ($_SESSION['Admin'] == '1') {?>
               <a href="../Admin/admin.php">DASHBOARD</a>
-              <?php } elseif($_SESSION['Admin']=='0'){ ?>
+              <?php } elseif ($_SESSION['Admin'] == '0') {?>
               <a href="../dashboard/dashboard.php">DASHBOARD</a>
-            <?php } elseif($_SESSION['Admin']=='-1') { ?><a href="../index.php">HOME</a>
-            <?php } ?></strong></li>
+            <?php } elseif ($_SESSION['Admin'] == '-1') {?><a href="../index.php">HOME</a>
+            <?php }?></strong></li>
 						<li><strong><a href="statusretriever.php">LIVE STATUS</a></strong></li>
 						<li><strong><a href="Ticket/ticket.php">TICKET RESERVATION</a></strong></li>
 						<li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
@@ -51,7 +53,7 @@ $_SESSION['Admin']='-1';
 						</div></strong></li>
 						<li><strong><a href="About.php" class="selected">ABOUT</a></strong></li>
 						<li><strong><a href="Team.php">TEAM</a></strong></li>
-						<li><strong><a href="contact.php">CONTACT</a></strong></li>					
+						<li><strong><a href="contact.php">CONTACT</a></strong></li>
 					</ul>
 				</nav>
 			</header>
@@ -77,7 +79,7 @@ $_SESSION['Admin']='-1';
 					</section>
 						</div>
 			</section>
-	
+
 			<script type="text/javascript" src="js/script.js"></script>
 
 	</body>

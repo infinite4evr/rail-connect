@@ -51,7 +51,7 @@ input[type=submit]:hover {
 
      <label for="pnr_no">Pnr Number</label>
     <input type="text" id="lname" name="pnr_no" placeholder="Pnr Number.." required>
-    
+
 
     <label for="subject">Subject</label>
     <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
@@ -64,62 +64,48 @@ input[type=submit]:hover {
 </html>
 
 
-<?php 
+<?php
 session_start();
-if (!((array_key_exists("uid",$_SESSION) AND $_SESSION['uid']) OR (array_key_exists("uid",$_COOKIE) AND $_COOKIE['uid']))) {
-header("Location:../login.php");
+if (!((array_key_exists("uid", $_SESSION) and $_SESSION['uid']) or (array_key_exists("uid", $_COOKIE) and $_COOKIE['uid']))) {
+    header("Location:../login.php");
 }
 // Primary Key Missing in Dtabase fix Please ty !
-if(isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
 
+    if (isset($_SESSION['uid'])) {echo "{$_SESSION['uid']}";
 
-if(isset($_SESSION['uid']))
+        $dbHost = "localhost"; //Location Of Database usually its localhost
+        $dbUser = "root"; //Database User Name
+        $dbPass = ""; //Database Password
+        $dbDatabase = "rail_connect"; //Database Name
 
+        $db = mysqli_connect($dbHost, $dbUser, $dbPass) or die("Error connecting to database.");
+        //Connect to the databasse
+        mysqli_select_db($db, $dbDatabase) or die("Couldn't select the database.");
 
-{ echo "{$_SESSION['uid']}";
+        $name = mysqli_real_escape_string($db, $_POST['name']);
+        $email = mysqli_real_escape_string($db, $_POST['Email']);
+        $pnr_no = mysqli_real_escape_string($db, $_POST['pnr_no']);
+        $subject = mysqli_real_escape_string($db, $_POST['subject']);
+        $id = mysqli_real_escape_string($db, $_SESSION['uid']);
 
-    $dbHost = "localhost";        //Location Of Database usually its localhost 
-    $dbUser = "root";            //Database User Name 
-    $dbPass = "";            //Database Password 
-    $dbDatabase = "rail_connect";    //Database Name 
+        $sql = "INSERT INTO complaints(uid,name,username,pnr_no,Subject) VALUES ('$id','$name','$email','$pnr_no','$subject')";
+        if (mysqli_query($db, $sql)) {
 
-     
-    $db = mysqli_connect($dbHost,$dbUser,$dbPass) or die("Error connecting to database."); 
-    //Connect to the databasse 
-    mysqli_select_db($db, $dbDatabase)or die("Couldn't select the database."); 
+            echo "<script>alert('Complaint Submitted Successfully'); window.location='../index.php'</script>";
+        } else {echo mysqli_error($db);
+            echo "<script>alert('Unepected Error occured'); window.location='complaint_form.php'</script>";
+            exit;
+        }
 
-    $name = mysqli_real_escape_string($db,$_POST['name']); 
-    $email = mysqli_real_escape_string($db,$_POST['Email']); 
-    $pnr_no = mysqli_real_escape_string($db,$_POST['pnr_no']); 
-    $subject = mysqli_real_escape_string($db,$_POST['subject']); 
-    $id=mysqli_real_escape_string($db,$_SESSION['uid']);
+    } else {
 
-    $sql ="INSERT INTO complaints(uid,name,username,pnr_no,Subject) VALUES ('$id','$name','$email','$pnr_no','$subject')"; 
-    if(mysqli_query($db,$sql)){ 
-       
-       echo "<script>alert('Complaint Submitted Successfully'); window.location='../index.php'</script>";
+        echo "<script>alert('Please Login and Retry Again'); window.location='../user_login/user_login_form.html'</script>";
+
     }
-
-
-else{  echo mysqli_error($db);
-      echo "<script>alert('Unepected Error occured'); window.location='complaint_form.php'</script>";
-        exit; 
-    }
-
 }
 
-
-else 
-
-{  
-
- echo "<script>alert('Please Login and Retry Again'); window.location='../user_login/user_login_form.html'</script>";
-
-}
-}
-
- ?> 
+?>
 
 
 

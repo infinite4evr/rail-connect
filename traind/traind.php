@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -21,12 +21,12 @@ session_start();
       </div></div></div></nav>
         <nav id="nav" class="">
           <ul>
-            <li><strong><?php if($_SESSION['Admin']=='1'){ ?>
+            <li><strong><?php if ($_SESSION['Admin'] == '1') {?>
               <a href="../Admin/admin.php">DASHBOARD</a>
-              <?php } elseif($_SESSION['Admin']=='0'){ ?>
+              <?php } elseif ($_SESSION['Admin'] == '0') {?>
               <a href="../dashboard/dashboard.php">DASHBOARD</a>
-            <?php } else { ?><a href="../index.php">HOME</a>
-            <?php } ?></strong></li>
+            <?php } else {?><a href="../index.php">HOME</a>
+            <?php }?></strong></li>
             <li><strong><a href="../statusretriever.php">LIVE STATUS</a></strong></li>
             <li><strong><a href="../Ticket/ticket.php">TICKET RESERVATION</a></strong></li>
             <li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
@@ -38,7 +38,7 @@ session_start();
             </div></strong></li>
             <li><strong><a href="../About.php">ABOUT</a></strong></li>
             <li><strong><a href="../Team.php">TEAM</a></strong></li>
-            <li><strong><a href="../contact.php">CONTACT</a></strong></li>          
+            <li><strong><a href="../contact.php">CONTACT</a></strong></li>
           </ul>
         </nav>
   </header>
@@ -51,33 +51,31 @@ session_start();
   Destination:<br>
   <input type= "text" name="d" required> <br><br>
   <input type="submit" value="Submit" name ="submit">
-</form></div></section>  
+</form></div></section>
 </body>
 </html>
 <?php
-if(array_key_exists("submit",$_POST)){
-	$db=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to Connect to the Database.");
-	$src=mysqli_real_escape_string($db,$_POST['s']);
-	$dst=mysqli_real_escape_string($db,$_POST['d']);
-	echo '<table>'; 
-				 echo "<tr>";
-				   echo "<th>Source</th>";
-				      echo "<th>Destination</th>";
-				      echo "<th>Train Name</th>";
-				      echo "<th>Train Number</th>";
-              echo "<th>Train Duration(hrs)</th>";
-              echo "<th>Distance Covered(Kms)</th>";
-				      echo "<th>Train Type</th></tr>";
-				      $q=mysqli_query($db,"SELECT * FROM trains WHERE from_station_name LIKE '%".$src."%' AND to_station_name LIKE '%".$dst."%';");
-				      if($q==TRUE){
-				 		$n=mysqli_num_rows($q);
-				for($i=0; $i<$n; $i++)
-				{   
-					$row=mysqli_fetch_array($q);
-					echo "<tr><td>{$row['from_station_name']}</td><td>{$row['to_station_name']}</td><td>{$row['train_name']}</td><td>{$row['train_number']}</td><td>{$row['duration']}</td><td>{$row['distance']}</td><td>{$row['train_type']}</td></tr>";
-				}
-			}
-			
+if (array_key_exists("submit", $_POST)) {
+    $db = mysqli_connect("localhost", "root", "", "rail_connect") or die("Unable to Connect to the Database.");
+    $src = mysqli_real_escape_string($db, $_POST['s']);
+    $dst = mysqli_real_escape_string($db, $_POST['d']);
+    echo '<table>';
+    echo "<tr>";
+    echo "<th>Source</th>";
+    echo "<th>Destination</th>";
+    echo "<th>Train Name</th>";
+    echo "<th>Train Number</th>";
+    echo "<th>Train Duration(hrs)</th>";
+    echo "<th>Distance Covered(Kms)</th>";
+    echo "<th>Train Type</th></tr>";
+    $q = mysqli_query($db, "SELECT * FROM trains WHERE from_station_name LIKE '%" . $src . "%' AND to_station_name LIKE '%" . $dst . "%';");
+    if ($q == true) {
+        $n = mysqli_num_rows($q);
+        for ($i = 0; $i < $n; $i++) {
+            $row = mysqli_fetch_array($q);
+            echo "<tr><td>{$row['from_station_name']}</td><td>{$row['to_station_name']}</td><td>{$row['train_name']}</td><td>{$row['train_number']}</td><td>{$row['duration']}</td><td>{$row['distance']}</td><td>{$row['train_type']}</td></tr>";
+        }
+    }
 
 }
 

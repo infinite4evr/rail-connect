@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <head>
@@ -29,7 +29,7 @@ session_start();
 							<a href="cancel.php">CANCELLED TICKETS</a>
 							</div>
 						</div></strong></li>
-						<li><strong><a href="review.php">Complaint-Review</a></strong></li>					
+						<li><strong><a href="review.php">Complaint-Review</a></strong></li>
 					</ul>
 				</nav>
 			</header>
@@ -54,49 +54,52 @@ session_start();
 <script type="text/javascript" src="js/typed.min.js"></script>
 			<script type="text/javascript" src="js/script.js"></script>
 			<?php
-				 if(array_key_exists('submit',$_POST))
-				 {
-				 	$conn=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to connect to the Database.");
-				 	$name=mysqli_real_escape_string($conn,$_POST['uname']);
-				 	if(isset($_POST['psw']))
-				 	$p=mysqli_real_escape_string($conn,$_POST['psw']);
-				    if(isset($_POST['pswa']))
-				 	$cp=mysqli_real_escape_string($conn,$_POST['pswa']);
-				 	$adm=mysqli_real_escape_string($conn,$_POST['ad']);
-				 	$query="SELECT username FROM users WHERE uid='".mysqli_real_escape_string($conn,$_SESSION['uid'])."' LIMIT 1";
-					$result=mysqli_query($conn,$query);
-					$row=mysqli_fetch_assoc($result);
-					$un=$row['username'];
-				 	 if($name==$un)
-				 	 	echo "<div><p><strong>Cannot Add/Delete Current user.</strong></p></div>";
-				 	 if($_POST['psw']!=$_POST['pswa']){
-        		echo "<div><p><strong>Password Mismatch.</strong></p></div>";
-    					}
-				 	if($_POST['submit']=='Add'){
-						    $query = "SELECT `uid` FROM `users` WHERE `username` ='$name'"; 
-						    $result = mysqli_query($conn,$query);
-						    if(mysqli_num_rows($result) > 0){
-						        echo '<div><p><strong>User Id Already Exists.!</strong></p></div>';
-						    }
-						    else{
-						    	if($adm=='0'){ echo "Not an Admin.";}
-				 	if(mysqli_query($conn ,"INSERT INTO `users`(`username`, `password`,`Admin`) VALUES ('$name','$p','$adm') ") == TRUE){ 
-           echo "<p><script>alert('User Created : Please Login');</script></p>";
-                   exit; 
-        }
-        else { echo "<p><script>alert('Could not currently Create User.Please try again later.');</script></p>";   sleep(5);
-            exit ;
+if (array_key_exists('submit', $_POST)) {
+    $conn = mysqli_connect("localhost", "root", "", "rail_connect") or die("Unable to connect to the Database.");
+    $name = mysqli_real_escape_string($conn, $_POST['uname']);
+    if (isset($_POST['psw'])) {
+        $p = mysqli_real_escape_string($conn, $_POST['psw']);
+    }
+
+    if (isset($_POST['pswa'])) {
+        $cp = mysqli_real_escape_string($conn, $_POST['pswa']);
+    }
+
+    $adm = mysqli_real_escape_string($conn, $_POST['ad']);
+    $query = "SELECT username FROM users WHERE uid='" . mysqli_real_escape_string($conn, $_SESSION['uid']) . "' LIMIT 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $un = $row['username'];
+    if ($name == $un) {
+        echo "<div><p><strong>Cannot Add/Delete Current user.</strong></p></div>";
+    }
+
+    if ($_POST['psw'] != $_POST['pswa']) {
+        echo "<div><p><strong>Password Mismatch.</strong></p></div>";
+    }
+    if ($_POST['submit'] == 'Add') {
+        $query = "SELECT `uid` FROM `users` WHERE `username` ='$name'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            echo '<div><p><strong>User Id Already Exists.!</strong></p></div>';
+        } else {
+            if ($adm == '0') {echo "Not an Admin.";}
+            if (mysqli_query($conn, "INSERT INTO `users`(`username`, `password`,`Admin`) VALUES ('$name','$p','$adm') ") == true) {
+                echo "<p><script>alert('User Created : Please Login');</script></p>";
+                exit;
+            } else {echo "<p><script>alert('Could not currently Create User.Please try again later.');</script></p>";
+                sleep(5);
+                exit;
+            }}
+    }
+
+    if ($_POST['submit'] == 'Remove') {
+        $q = mysqli_query($conn, "DELETE FROM `users` WHERE `username`='$name' AND `Admin`= '$adm' LIMIT 1;");
+        if ($q == true) {
+            echo "<p><script>alert('User Deleted from the Database');</script></p>";
+        } else {
+            echo "<p><script>alert('User Could not be deleted from the Database');</script></p>";
         }}
-       }
+}
 
-				 		if($_POST['submit']=='Remove'){
-				 	$q=mysqli_query($conn,"DELETE FROM `users` WHERE `username`='$name' AND `Admin`= '$adm' LIMIT 1;");
-				 	if($q==True){
-				 		echo "<p><script>alert('User Deleted from the Database');</script></p>";
-				 	}
-				 	else{
-				 		echo"<p><script>alert('User Could not be deleted from the Database');</script></p>";
-				 	}}
-				 }
-
-			?>
+?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -21,12 +21,12 @@ session_start();
       </div></div></div></nav>
         <nav id="nav" class="">
           <ul>
-            <li><strong><?php if($_SESSION['Admin']=='1'){ ?>
+            <li><strong><?php if ($_SESSION['Admin'] == '1') {?>
               <a href="../Admin/admin.php">DASHBOARD</a>
-              <?php } elseif($_SESSION['Admin']=='0'){ ?>
+              <?php } elseif ($_SESSION['Admin'] == '0') {?>
               <a href="../dashboard/dashboard.php">DASHBOARD</a>
-            <?php } else { ?><a href="../index.php">HOME</a>
-            <?php } ?></strong></li>
+            <?php } else {?><a href="../index.php">HOME</a>
+            <?php }?></strong></li>
             <li><strong><a href="../statusretriever.php">LIVE STATUS</a></strong></li>
             <li><strong><a href="ticket.php" class="selected">TICKET RESERVATION</a></strong></li>
             <li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
@@ -38,7 +38,7 @@ session_start();
             </div></strong></li>
             <li><strong><a href="../About.php">ABOUT</a></strong></li>
             <li><strong><a href="../Team.php">TEAM</a></strong></li>
-            <li><strong><a href="../contact.php">CONTACT</a></strong></li>          
+            <li><strong><a href="../contact.php">CONTACT</a></strong></li>
           </ul>
         </nav>
   </header>
@@ -65,54 +65,60 @@ session_start();
 			  	<option value="Other">Other</option>
 			  </select><br><br>
   <input type="submit" value="Submit" name ="submit">
-</form></div></section>  
+</form></div></section>
 </body>
 </html>
 <?php
-if(array_key_exists("submit",$_POST)){
-	$db=mysqli_connect("localhost","root","","rail_connect") OR die("Unable to Connect to the Database.");
-	$src=mysqli_real_escape_string($db,$_POST['s']);
-	$dst=mysqli_real_escape_string($db,$_POST['d']);
-	$num=mysqli_real_escape_string($db,$_POST['n']);
-	$type=mysqli_real_escape_string($db,$_POST['Ttype']);
-	echo '<table>'; 
-				 echo "<tr>";
-				   echo "<th>Passenger Name</th>";
-				      echo "<th>Passenger DOB</th>";
-				      echo "<th>Passenger Phone Number</th>";
-				      echo "<th>Train Source</th>";
-				      echo "<th>Train Destination</th>";
-				      echo "<th>Train Number</th>";
-				      echo "<th>Fare</th>";
-				      echo "<th>Cancellation</th></tr>";
-				      $q=mysqli_query($db,"SELECT * FROM trains,passenger WHERE from_station_name LIKE '%".$src."%' AND to_station_name LIKE '%".$dst."%' AND train_type='$type' AND train_number=tno;");
-				      if($q==TRUE){
-							$n=mysqli_num_rows($q);
-				for($i=0; $i<$n; $i++)
-				{   
-					$row=mysqli_fetch_array($q);
-					switch($type){
-						case 'GR': $v=$num*1;break;
-						case 'Pass': $v=$num*1.4;break;
-						case 'Exp': $v=$num*1.5;break;
-						case 'Drnt': $v=$num*1.6;break;
-						case 'JShtb': $v=$num*1.7;break;
-						case 'Raj': $v=$num*1.8;break;
-						case 'SF': $v=$num*2;break;
-						case 'SKr':$v=$num*1.6;break;
-						default:$v=$num*1.5;
-					}
-					$f=$v*$row['distance'];
-					
-					echo "<tr><td><form action='cancel2.php' method='post'>{$row['passenger_name']}</td><td>{$row['passenger_name']}</td><td>{$row['passenger_phnno']}</td><td>{$row['from_station_name']}</td><td>{$row['to_station_name']}</td><td>{$row['train_number']}</td><td>{$f}</td><td><input type='submit' value='CANCEL' name='book'></form></td></tr>";
+if (array_key_exists("submit", $_POST)) {
+    $db = mysqli_connect("localhost", "root", "", "rail_connect") or die("Unable to Connect to the Database.");
+    $src = mysqli_real_escape_string($db, $_POST['s']);
+    $dst = mysqli_real_escape_string($db, $_POST['d']);
+    $num = mysqli_real_escape_string($db, $_POST['n']);
+    $type = mysqli_real_escape_string($db, $_POST['Ttype']);
+    echo '<table>';
+    echo "<tr>";
+    echo "<th>Passenger Name</th>";
+    echo "<th>Passenger DOB</th>";
+    echo "<th>Passenger Phone Number</th>";
+    echo "<th>Train Source</th>";
+    echo "<th>Train Destination</th>";
+    echo "<th>Train Number</th>";
+    echo "<th>Fare</th>";
+    echo "<th>Cancellation</th></tr>";
+    $q = mysqli_query($db, "SELECT * FROM trains,passenger WHERE from_station_name LIKE '%" . $src . "%' AND to_station_name LIKE '%" . $dst . "%' AND train_type='$type' AND train_number=tno;");
+    if ($q == true) {
+        $n = mysqli_num_rows($q);
+        for ($i = 0; $i < $n; $i++) {
+            $row = mysqli_fetch_array($q);
+            switch ($type) {
+                case 'GR':$v = $num * 1;
+                    break;
+                case 'Pass':$v = $num * 1.4;
+                    break;
+                case 'Exp':$v = $num * 1.5;
+                    break;
+                case 'Drnt':$v = $num * 1.6;
+                    break;
+                case 'JShtb':$v = $num * 1.7;
+                    break;
+                case 'Raj':$v = $num * 1.8;
+                    break;
+                case 'SF':$v = $num * 2;
+                    break;
+                case 'SKr':$v = $num * 1.6;
+                    break;
+                default:$v = $num * 1.5;
+            }
+            $f = $v * $row['distance'];
 
-				}
-				$_SESSION['passenger_name']=$row['passenger_name'];
-			$_SESSION['passenger_dob']=$row['passenger_dob'];
-			$_SESSION['passenger_phnno']=$row['passenger_phnno'];
-			$_SESSION['train_number']=$row['train_number'];
-			}
-			
+            echo "<tr><td><form action='cancel2.php' method='post'>{$row['passenger_name']}</td><td>{$row['passenger_name']}</td><td>{$row['passenger_phnno']}</td><td>{$row['from_station_name']}</td><td>{$row['to_station_name']}</td><td>{$row['train_number']}</td><td>{$f}</td><td><input type='submit' value='CANCEL' name='book'></form></td></tr>";
+
+        }
+        $_SESSION['passenger_name'] = $row['passenger_name'];
+        $_SESSION['passenger_dob'] = $row['passenger_dob'];
+        $_SESSION['passenger_phnno'] = $row['passenger_phnno'];
+        $_SESSION['train_number'] = $row['train_number'];
+    }
 
 }
 

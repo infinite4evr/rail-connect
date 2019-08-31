@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -21,12 +21,12 @@ session_start();
       </div></div></div></nav>
         <nav id="nav" class="">
           <ul>
-            <li><strong><?php if($_SESSION['Admin']=='1'){ ?>
+            <li><strong><?php if ($_SESSION['Admin'] == '1') {?>
               <a href="../Admin/admin.php">DASHBOARD</a>
-              <?php } elseif($_SESSION['Admin']=='0'){ ?>
+              <?php } elseif ($_SESSION['Admin'] == '0') {?>
               <a href="../dashboard/dashboard.php">DASHBOARD</a>
-            <?php } else { ?><a href="../index.php">HOME</a>
-            <?php } ?></strong></li>
+            <?php } else {?><a href="../index.php">HOME</a>
+            <?php }?></strong></li>
             <li><strong><a href="../statusretriever.php">LIVE STATUS</a></strong></li>
             <li><strong><a href="../Ticket/ticket.php">TICKET RESERVATION</a></strong></li>
             <li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
@@ -38,7 +38,7 @@ session_start();
             </div></strong></li>
             <li><strong><a href="../About.php">ABOUT</a></strong></li>
             <li><strong><a href="../Team.php" >TEAM</a></strong></li>
-            <li><strong><a href="../contact.php">CONTACT</a></strong></li>          
+            <li><strong><a href="../contact.php">CONTACT</a></strong></li>
           </ul>
         </nav>
       </header>
@@ -56,13 +56,11 @@ Train Number : <br>
 </html>
 
 
-  <?php 
+  <?php
 
-  if(isset($_POST['submit']))
+if (isset($_POST['submit'])) {
 
-  {
-
-  ?>
+    ?>
 <div class="container">
 
 </h4>
@@ -72,46 +70,43 @@ Train Number : <br>
 <form action="directions.php" method="get">
 
 
-<?php 
-$train_no=$_POST['trainid'];
-echo "Details for Train with no: ".$train_no;
-echo "<br><br>";
+<?php
+$train_no = $_POST['trainid'];
+    echo "Details for Train with no: " . $train_no;
+    echo "<br><br>";
 //$train_no= 12046;
-//$url= "http://api.railwayapi.com/between/source/".$from."/dest/".$to."/date/".$date."/apikey/dlbld2375/";
-$url = "http://api.railwayapi.com/v2/route/train/".$train_no."/apikey/5on7w9zra0/";
-$content = file_get_contents($url);
-$json = json_decode($content, true);
-$routeno= sizeof($json['route']);
-?>
-<?php 
+    //$url= "http://api.railwayapi.com/between/source/".$from."/dest/".$to."/date/".$date."/apikey/dlbld2375/";
+    $url = "http://api.railwayapi.com/v2/route/train/" . $train_no . "/apikey/5on7w9zra0/";
+    $content = file_get_contents($url);
+    $json = json_decode($content, true);
+    $routeno = sizeof($json['route']);
+    ?>
+<?php
 
- echo '<table>'; 
- echo "<tr>";
-   echo "<th>Station Name And Code</th>";
-      echo "<th>Scheduled Arrival Time</th>";
-      echo "<th>Scheduled Departure Time</th>";
-      echo "<th>Enroute day</th>";
-     echo "<th>Distance(in km)</th></tr>";
+    echo '<table>';
+    echo "<tr>";
+    echo "<th>Station Name And Code</th>";
+    echo "<th>Scheduled Arrival Time</th>";
+    echo "<th>Scheduled Departure Time</th>";
+    echo "<th>Enroute day</th>";
+    echo "<th>Distance(in km)</th></tr>";
 
-for($i=0; $i<$routeno; $i++)
-{
-  
-  if($i==$routeno-1)
-  {
-    continue;
-  }
-  
+    for ($i = 0; $i < $routeno; $i++) {
+
+        if ($i == $routeno - 1) {
+            continue;
+        }
+
 // Output a row
-      echo "<tr>";
+        echo "<tr>";
 
-      echo "<td>{$json["route"][$i]["station"]['name']}({$json["route"][$i]["station"]['code']})</td>";  
-      echo "<td>{$json['route'][$i]['scharr']}</td>"; //Scheduled arrival
-      echo "<td>{$json['route'][$i]['schdep']}</td>"; //scheduled departure 
-      echo "<td>{$json['route'][$i]['day']}</td>";    //Enroute day
-      echo "<td>{$json['route'][$i]['distance']}</td>"; // Distance (kms)
-      echo "</tr>";
-}
-
+        echo "<td>{$json["route"][$i]["station"]['name']}({$json["route"][$i]["station"]['code']})</td>";
+        echo "<td>{$json['route'][$i]['scharr']}</td>"; //Scheduled arrival
+        echo "<td>{$json['route'][$i]['schdep']}</td>"; //scheduled departure
+        echo "<td>{$json['route'][$i]['day']}</td>"; //Enroute day
+        echo "<td>{$json['route'][$i]['distance']}</td>"; // Distance (kms)
+        echo "</tr>";
+    }
 
 }
 

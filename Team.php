@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE HTML>
@@ -32,12 +32,12 @@ session_start();
 	    </div></div></div></nav>
 				<nav id="nav" class="">
 					<ul>
-						<li><strong><?php if($_SESSION['Admin']=='1'){ ?>
+						<li><strong><?php if ($_SESSION['Admin'] == '1') {?>
               <a href="../Admin/admin.php">DASHBOARD</a>
-              <?php } elseif($_SESSION['Admin']=='0'){ ?>
+              <?php } elseif ($_SESSION['Admin'] == '0') {?>
               <a href="../dashboard/dashboard.php">DASHBOARD</a>
-            <?php } else { ?><a href="../index.php">HOME</a>
-            <?php } ?></strong></li>
+            <?php } else {?><a href="../index.php">HOME</a>
+            <?php }?></strong></li>
 						<li><strong><a href="statusretriever.php">LIVE STATUS</a></strong></li>
 						<li><strong><a href="Ticket/ticket.php">TICKET RESERVATION</a></strong></li>
 						<li><strong><div class="dropdown"><a class="dropbtn">ENQUIRY</a>
@@ -49,7 +49,7 @@ session_start();
 						</div></strong></li>
 						<li><strong><a href="About.php">ABOUT</a></strong></li>
 						<li><strong><a href="Team.php" class="selected">TEAM</a></strong></li>
-						<li><strong><a href="contact.php">CONTACT</a></strong></li>					
+						<li><strong><a href="contact.php">CONTACT</a></strong></li>
 					</ul>
 				</nav>
 			</header>
@@ -78,7 +78,7 @@ session_start();
 					</section>
 						</div>
 			</section>
-	
+
 			<script type="text/javascript" src="js/script.js"></script>
 
 	</body>
